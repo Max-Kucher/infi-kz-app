@@ -4,10 +4,6 @@ import { IonPage, IonHeader, IonTitle, IonContent } from '@ionic/vue';
 
 <template>
   <IonPage>
-    <IonHeader>
-      <IonTitle>222</IonTitle>
-    </IonHeader>
-    <IonContent>
-    </IonContent>
+    test
   </IonPage>
 </template>
