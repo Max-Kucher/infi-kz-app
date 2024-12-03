@@ -1,5 +1,22 @@
 {
-  "homepage": {
-    "title": "Test 2"
+  "screens": {
+    "underMaintenance": "This page is under maintenance"
+  },
+  "components": {
+    "logo": {
+      "imageAlt": "Логотип"
+    },
+    "authForm": {
+      "title": "Sign in",
+      "subtitle": "Use your login and password to sign in",
+      "login": "Email",
+      "password": "Password",
+      "submit": "Enter account",
+      "fingerprintLogin": "Or enter using fingerprint"
+    }
+  },
+  "auth": {
+    "login": "Sign In",
+    "register": "Sign Up"
   }
 }

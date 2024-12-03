@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import {IonPage, IonRouterOutlet, IonHeader, IonContent} from '@ionic/vue'
+import {IonPage, IonRouterOutlet, IonHeader, IonContent, IonRow, IonCol} from '@ionic/vue'
 import AppLogo from '@/components/AppLogo.vue'
 </script>
 
 <template>
   <IonPage>
     <IonHeader>
-      <AppLogo :to="{ name: 'auth-register' }" />
+      <IonRow>
+        <IonCol class="flex gap-2">
+          <AppLogo :to="{ name: 'auth-login' }" />
+        </IonCol>
+      </IonRow>
     </IonHeader>
 
     <IonContent>
