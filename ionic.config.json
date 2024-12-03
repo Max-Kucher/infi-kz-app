@@ -1,0 +1,8 @@
+{
+  "name": "InfiKzApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite",
+  "id": "52b526cf"
+}
