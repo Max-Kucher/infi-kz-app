@@ -1,8 +1,9 @@
 import {isRef, nextTick} from 'vue'
 import {createI18n, I18n, I18nOptions} from 'vue-i18n'
-import {NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded} from "vue-router";
+import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormalizedLoaded } from 'vue-router'
 
-export const SUPPORT_LOCALES = ['en']
+export const SUPPORT_LOCALES = ['en'] as const
+export type AppLocale = typeof SUPPORT_LOCALES[number]
 
 export async function setupI18n(options: I18nOptions = { locale: 'en' }) {
     const i18n = createI18n(options)
@@ -12,7 +13,7 @@ export async function setupI18n(options: I18nOptions = { locale: 'en' }) {
     return i18n
 }
 
-function setI18nLanguage(i18n: I18n, locale: string) {
+function setI18nLanguage(i18n: I18n, locale: AppLocale) {
     if (i18n.mode === 'legacy') {
         i18n.global.locale = locale
     } else if (isRef(i18n.global.locale)) {
@@ -29,7 +30,7 @@ function setI18nLanguage(i18n: I18n, locale: string) {
     document.querySelector('html')?.setAttribute('lang', locale)
 }
 
-async function loadLocaleMessages(i18n: I18n, locale: string) {
+async function loadLocaleMessages(i18n: I18n, locale: AppLocale) {
     const messages = await import(`./locales/${locale}.json`)
 
     i18n.global.setLocaleMessage(locale, messages.default)

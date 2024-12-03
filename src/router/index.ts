@@ -1,8 +1,12 @@
-import { createRouter, createWebHistory } from '@ionic/vue-router';
-import { RouteRecordRaw } from 'vue-router';
-import IndexPage from '../views/IndexPage.vue'
+import { createRouter, createWebHistory } from '@ionic/vue-router'
+import { RouteRecordRaw } from 'vue-router'
+import { type I18n } from 'vue-i18n'
+import { type AppRouteAuthMeta, authRouterHelper } from '@/helpers/auth'
+import { localeRouterHelper } from '@/i18n/i18n'
 
-import { I18n } from 'vue-i18n'
+// Pages
+import IndexPage from '../views/IndexPage.vue'
+import AuthPage from "@/views/auth/AuthPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,20 +14,38 @@ const routes: Array<RouteRecordRaw> = [
     component: IndexPage,
   },
   {
-    path: '/auth',
-    name: 'auth',
+    path: '/auth/',
+    component: AuthPage,
     redirect: { name: 'auth-login' },
     children: [
       {
-        path: '/login',
+        path: '',
+        name: 'auth',
+        redirect: { name: 'auth-login' },
+      },
+      {
+        path: 'login',
         name: 'auth-login',
         component: () => import('@/views/auth/LoginPage.vue'),
+        meta: {
+          auth: {
+            publicOnly: true,
+          } as AppRouteAuthMeta,
+        },
+      },
+      {
+        path: 'register',
+        name: 'auth-register',
+        component: () => import('@/views/auth/RegisterPage.vue'),
+        meta: {
+          auth: {
+            publicOnly: true,
+          },
+        },
       },
     ],
   },
 ]
-
-import { localeRouterHelper } from '@/i18n'
 
 export const createAppRouter = (i18n: I18n) => {
   const router = createRouter({
@@ -33,6 +55,8 @@ export const createAppRouter = (i18n: I18n) => {
 
   router.beforeEach(async (to, from, next) => {
     await localeRouterHelper(i18n, to, from, next)
+    await authRouterHelper(to, from, next)
+
     return next()
   })
 
