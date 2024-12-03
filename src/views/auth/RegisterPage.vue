@@ -1,7 +1,10 @@
 <script setup lang="ts">
 
+import {IonPage} from "@ionic/vue";
 </script>
 
 <template>
-  <p>111</p>
+  <IonPage>
+    test 2
+  </IonPage>
 </template>

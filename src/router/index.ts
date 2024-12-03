@@ -12,6 +12,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: IndexPage,
+    name: 'index',
   },
   {
     path: '/auth/',
