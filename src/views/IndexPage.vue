@@ -3,5 +3,7 @@
 </script>
 
 <template>
-  <h1>Homepage</h1>
+  <h1>
+    {{ $t('homepage.title') }}
+  </h1>
 </template>

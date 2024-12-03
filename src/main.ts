@@ -2,7 +2,12 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
 import App from './App.vue'
-import router from './router';
+
+import { setupI18n } from './i18n'
+const i18n = await setupI18n()
+
+import { createAppRouter } from './router'
+const router = createAppRouter(i18n)
 
 import { IonicVue } from '@ionic/vue';
 
@@ -41,7 +46,8 @@ const pinia = createPinia()
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
-  .use(pinia);
+  .use(pinia)
+  .use(i18n);
 
 router.isReady().then(() => {
   app.mount('#app');

@@ -5,11 +5,11 @@ export const useGlobalSettingsStore = defineStore('globalSettings', () => {
     /**
      * ToDo: Add typed interface for global settings
      */
-    const globalSettings = asyncComputed<Record<string, any>>({
-
+    const globalSettings = asyncComputed<Record<string, any>>(async () => {
+        return {}
     })
 
     return {
-        globalSettings
+        globalSettings,
     }
 })
