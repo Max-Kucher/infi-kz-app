@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import IndexPage from '../views/IndexPage.vue'
 
-import {I18n, useI18n} from 'vue-i18n'
+import { I18n } from 'vue-i18n'
 
 const routes: Array<RouteRecordRaw> = [
   {
