@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
   },
 ]
 
-import { SUPPORT_LOCALES, loadLocaleMessages, setI18nLanguage } from '@/i18n'
+import { localeRouterHelper } from '@/i18n'
 
 export const createAppRouter = (i18n: I18n) => {
   const router = createRouter({
@@ -32,18 +32,7 @@ export const createAppRouter = (i18n: I18n) => {
   })
 
   router.beforeEach(async (to, from, next) => {
-    const locale = to.params.locale ?? i18n.global.locale
-
-    if (locale && !SUPPORT_LOCALES.includes(locale)) {
-      return next(`/${i18n.global.locale}`)
-    }
-
-    if (!i18n.global.availableLocales.includes(locale)) {
-      await loadLocaleMessages(i18n, locale)
-    }
-
-    setI18nLanguage(i18n, locale)
-
+    await localeRouterHelper(i18n, to, from, next)
     return next()
   })
 
