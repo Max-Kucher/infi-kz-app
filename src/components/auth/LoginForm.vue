@@ -12,7 +12,7 @@ const isLoading = ref<boolean>(false)
 const authStore = useAuthStore()
 const router = useRouter()
 
-const handleSubmit = async (e: SubmitEvent) => {
+const handleSubmit = async (e: Event) => {
   isLoading.value = true
   const form = e.target as HTMLFormElement
 

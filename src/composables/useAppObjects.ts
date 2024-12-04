@@ -1,7 +1,6 @@
 
 import { objectToQueryString } from '@/helpers/http'
-import {CapacitorHttp } from '@capacitor/core'
-import {ABackendResponse} from "@/types";
+import { CapacitorHttp } from '@capacitor/core'
 
 export interface PhoneType {
     id: number
@@ -58,7 +57,7 @@ export interface AppObjectSpecification {
     id: number
     slug: string
     name: string
-    type: AppSpecificationType
+    type: string // ToDo: Add AppSpecificationType
     type_verbose: string
 }
 
@@ -69,7 +68,7 @@ export interface AppObject {
     shortDescription: string
     slug: string
     photos: AppObjectImage[]
-    attachments: AppObjectAttachment[]
+    // attachments: AppObjectAttachment[]
     location: AppObjectLocation
     social_networks?: ObjectSocialNetworkData[]
     avg_rating: number | null

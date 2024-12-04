@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { IonImg, IonButton } from '@ionic/vue'
 import { type HTMLAttributes } from 'vue'
-import { RouteLocationRaw, useRouter } from 'vue-router'
+import {
+  useRouter,
+} from 'vue-router'
 import { cn } from '@/helpers/ui'
 
 const props = withDefaults(defineProps<{
-  to?: RouteLocationRaw
+  to?: { name: string }
   linkClass?: HTMLAttributes['class']
   imageClass?: HTMLAttributes['class']
 }>(), {
-  to: {
+  to: () => ({
     name: 'index',
-  },
+  }),
 })
 
 const router = useRouter()

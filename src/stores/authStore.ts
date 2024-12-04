@@ -36,9 +36,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const authToken = computedAsync<string | undefined>(async () => {
         tokenTrigger.value
-        const authCookie = await CapacitorCookies.getCookies({
-            key: AUTH_KEYS.tokenCookieKey,
-        })
+        const authCookie = await CapacitorCookies.getCookies()
 
         return authCookie[AUTH_KEYS.tokenCookieKey]
     })

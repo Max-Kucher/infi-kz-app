@@ -4,7 +4,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 
 import { setupI18n } from './i18n/i18n'
-const i18n = await setupI18n()
+const i18n = setupI18n()
 
 import { createAppRouter } from './router'
 const router = createAppRouter(i18n)

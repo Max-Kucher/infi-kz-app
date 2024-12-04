@@ -5,10 +5,10 @@ import type { NavigationGuardNext, RouteLocationNormalized, RouteLocationNormali
 export const SUPPORT_LOCALES = ['en'] as const
 export type AppLocale = typeof SUPPORT_LOCALES[number]
 
-export async function setupI18n(options: I18nOptions = { locale: 'en' }) {
+export function setupI18n(options: I18nOptions = { locale: 'en' }) {
     const i18n = createI18n(options)
-    setI18nLanguage(i18n, options.locale as string)
-    await loadLocaleMessages(i18n, options.locale as string)
+    setI18nLanguage(i18n, options.locale as AppLocale)
+    loadLocaleMessages(i18n, options.locale as AppLocale)
 
     return i18n
 }
@@ -42,7 +42,7 @@ export const localeRouterHelper = async (
     i18n: I18n,
     to: RouteLocationNormalized
 ) => {
-    const locale = to.params.locale ?? i18n.global.locale
+    const locale = (to.params.locale ?? i18n.global.locale) as AppLocale
 
     if (locale && !SUPPORT_LOCALES.includes(locale)) {
         return `/${i18n.global.locale}`
