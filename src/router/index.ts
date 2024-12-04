@@ -55,8 +55,15 @@ export const createAppRouter = (i18n: I18n) => {
   })
 
   router.beforeEach(async (to, from, next) => {
-    await localeRouterHelper(i18n, to, from, next)
-    await authRouterHelper(to, from, next)
+    const localeRedirect = await localeRouterHelper(i18n, to)
+    if (localeRedirect) {
+      return next(localeRedirect)
+    }
+
+    const authRedirect = await authRouterHelper(to, from)
+    if (authRedirect) {
+      return next(authRedirect)
+    }
 
     return next()
   })

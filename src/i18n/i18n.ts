@@ -40,14 +40,12 @@ async function loadLocaleMessages(i18n: I18n, locale: AppLocale) {
 
 export const localeRouterHelper = async (
     i18n: I18n,
-    to: RouteLocationNormalized,
-    from: RouteLocationNormalizedLoaded,
-    next: NavigationGuardNext
+    to: RouteLocationNormalized
 ) => {
     const locale = to.params.locale ?? i18n.global.locale
 
     if (locale && !SUPPORT_LOCALES.includes(locale)) {
-        return next(`/${i18n.global.locale}`)
+        return `/${i18n.global.locale}`
     }
 
     if (!i18n.global.availableLocales.includes(locale)) {

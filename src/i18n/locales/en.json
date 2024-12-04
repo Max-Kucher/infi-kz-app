@@ -18,5 +18,8 @@
   "auth": {
     "login": "Sign In",
     "register": "Sign Up"
+  },
+  "home": {
+    "title": "Home"
   }
 }

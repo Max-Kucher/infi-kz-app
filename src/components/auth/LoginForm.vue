@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { IonInput, IonText, IonButton } from '@ionic/vue'
+import { IonInput, IonText, IonButton, IonLoading } from '@ionic/vue'
 import { CapacitorHttp, type HttpResponse } from '@capacitor/core'
 import { ref } from 'vue'
 import AppDivider from '@/components/AppDivider.vue'
 import { processResponse } from '@/helpers/http'
-import {storeToRefs} from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
+import {useRouter} from "vue-router";
 
 const isLoading = ref<boolean>(false)
 
 const authStore = useAuthStore()
-const { user, authToken } = storeToRefs(authStore)
+const router = useRouter()
 
 const handleSubmit = async (e: SubmitEvent) => {
   isLoading.value = true
@@ -33,6 +33,10 @@ const handleSubmit = async (e: SubmitEvent) => {
     await processResponse(response, async () => {
       await authStore.setAuthToken(response.data.access)
       await authStore.setAppUser(response.data.user)
+
+      router.replace({
+        name: 'index',
+      })
     })
   } finally {
     isLoading.value = false
@@ -83,6 +87,7 @@ const handleSubmit = async (e: SubmitEvent) => {
     >
       {{ $t('components.authForm.submit') }}
     </IonButton>
+    <IonLoading :is-open="isLoading" />
 
     <AppDivider
       class="my-4"

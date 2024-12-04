@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { computedAsync } from '@vueuse/core'
 import { defineStore } from 'pinia'
 import { CapacitorCookies } from '@capacitor/core'
@@ -30,7 +31,11 @@ export const AUTH_KEYS = {
 } as const
 
 export const useAuthStore = defineStore('auth', () => {
+    const tokenTrigger = ref<number>(0)
+    const userTrigger = ref<number>(0)
+
     const authToken = computedAsync<string | undefined>(async () => {
+        tokenTrigger.value
         const authCookie = await CapacitorCookies.getCookies({
             key: AUTH_KEYS.tokenCookieKey,
         })
@@ -39,6 +44,7 @@ export const useAuthStore = defineStore('auth', () => {
     })
 
     const user = computedAsync<AppUser | undefined>(async () => {
+        userTrigger.value
         const storedUser = await Preferences.get({ key: AUTH_KEYS.userPreferencesKey })
         if (storedUser.value) {
             return JSON.parse(storedUser.value) as AppUser
@@ -52,6 +58,8 @@ export const useAuthStore = defineStore('auth', () => {
             key: AUTH_KEYS.tokenCookieKey,
             value: token,
         })
+
+        tokenTrigger.value = tokenTrigger.value + 1
     }
 
     const setAppUser = async (appUser: AppUser) => {
@@ -59,6 +67,8 @@ export const useAuthStore = defineStore('auth', () => {
             key: AUTH_KEYS.userPreferencesKey,
             value: JSON.stringify(appUser),
         })
+
+        userTrigger.value = userTrigger.value + 1
     }
 
     const clearAuthData = async () => {
