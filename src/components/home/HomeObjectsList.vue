@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonImg, IonCardContent } from '@ionic/vue'
+import { IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonImg, IonCardContent, IonButton } from '@ionic/vue'
+import { Share } from '@capacitor/share'
+
 import { useAppObjects } from '@/composables/useAppObjects'
 
 const { objectsSearch } = useAppObjects()
@@ -7,6 +9,8 @@ const objects = await objectsSearch({
   type: 'restaurant',
   skip_facets: true,
 })
+
+const canShare = await Share.canShare()
 </script>
 
 <template>
@@ -36,6 +40,22 @@ const objects = await objectsSearch({
               {{ object.shortDescription }}
             </div>
           </IonCardContent>
+
+          <IonButton
+            v-if="canShare"
+            fill="clear"
+            @click="async () => {
+              /**
+                * ToDo: Refactor this
+                */
+              await Share.share({
+                title: object.name,
+                url: `http://localhost:3000/restaurants/${object.slug}`,
+              })
+            }"
+          >
+            {{ $t('general.share') }}
+          </IonButton>
         </IonCard>
       </IonCol>
     </IonRow>
